@@ -41,14 +41,16 @@ git clone [https://github.com/gimarso/photoz_challenge.git](https://github.com/g
 cd photoz_challenge
 ```
 
-**Step 3.2:** Create the virtual environment using the provided configuration file. This will install all necessary dependencies (PyTorch, Pandas, Matplotlib, etc.).
+**Step 3.2:** Create the virtual environment with a base Python 3.10 installation using Conda, and activate it. You must do this every time you open a new terminal to run the project.
 ```bash
-conda env create -f environment.yml
+conda create -n photoz_env python=3.10 -y
+conda activate photoz_env
 ```
 
-**Step 3.3:** Activate the newly created environment. You must do this every time you open a new terminal to run the project.
+**Step 3.3:** Install all necessary dependencies (PyTorch, Pandas, Matplotlib, JupyterLab, etc.) using `pip` and the `requirements.txt` file. This hybrid approach ensures optimal compatibility and faster installation.
 ```bash
-conda activate photoz_env
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
 ## 4. Running the Pipeline (Command Line)
@@ -81,12 +83,11 @@ Once your environment is active and your data is properly placed in the `../data
 
 ## 5. Running the Pipeline (Jupyter Notebook)
 
-Alternatively, you can run and interact with the pipeline using a Jupyter Notebook. This approach is highly recommended for exploring the data interactively, debugging, and visualizing results step-by-step.
+Alternatively, you can run and interact with the pipeline using JupyterLab. This approach is highly recommended for exploring the data interactively, debugging, and visualizing results step-by-step within a modern IDE environment.
 
-**Step 5.1:** Launch Jupyter from your terminal (make sure the `photoz_env` environment is activated first):
+**Step 5.1:** Launch JupyterLab from your terminal (make sure the `photoz_env` environment is activated first):
 ```bash
-jupyter notebook
+jupyter lab
 ```
-*(Note: You can also use `jupyter lab` if you prefer the modern interface).*
 
 **Step 5.2:** Your default web browser will automatically open. Navigate through the directory tree, open the `.ipynb` notebook file included in the repository, and run the cells sequentially to execute the pipeline.
