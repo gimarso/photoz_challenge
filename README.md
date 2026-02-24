@@ -1,8 +1,8 @@
 # Photo-Z Challenge: Environment Setup and Execution Guide
 
-<img src="spectra.png" alt="Photo-Z Challenge Overview" width="300"/>
+<img src="spectra.png" alt="Photo-Z Challenge Overview" width="500"/>
 
-![Photo-Z Challenge Overview](spectra.png)
+![Photo-Z Challenge Overview]
 
 Welcome to the Photo-Z Challenge! This guide provides step-by-step instructions to set up your Python environment, install all required dependencies, and run the machine learning pipeline on your local machine. It is fully compatible with both Windows and macOS.
 
