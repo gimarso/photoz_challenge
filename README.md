@@ -16,5 +16,5 @@ Before beginning, ensure you have the following tools installed on your system:
 Open your terminal (macOS) or Anaconda Prompt (Windows) and download the course materials using Git:
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/photoz_challenge.git](https://github.com/YOUR_USERNAME/photoz_challenge.git)
+git clone [https://github.com/gimarso/photoz_challenge.git](https://github.com/gimarso/photoz_challenge.git)
 cd photoz_challenge
