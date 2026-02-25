@@ -66,7 +66,7 @@ Once your environment is active and your data is properly placed in the `./data/
 * **Evaluate on Validation Set:**
   Loads the trained model, runs inference on `validation_set.h5`, and generates detailed evaluation plots (PDFs) in the `./pdf/` directory. The generated evaluation report includes the following visualizations:
   * **Page 1:** Scatter plots comparing Predicted vs True Redshift, displaying both point density and color-coding by iSDSS magnitude for Galaxies and QSOs.
-  * **Page 2:** Binned performance metrics—Bias, precision (Sigma_NMAD), and Outlier Fraction—evaluated against iSDSS magnitude and True Z for Galaxies.
+  * **Page 2:** Binned performance metrics—Bias, precision ($\sigma_{NMAD}$), and Outlier Fraction—evaluated against iSDSS magnitude and True Z for Galaxies.
   * **Page 3 (Conditional):** Scatter plots showing the Negative Log-Likelihood (NLL) versus True Redshift. This page is only generated if your chosen model outputs predictive uncertainty (Z_PRED_STD).
   bash
   python test_validation.py
@@ -127,21 +127,25 @@ For each category, predictions are evaluated by comparing the predicted redshift
 
 * **Bias**: Measured as the median of the redshift error.
 * **Precision ($\sigma_{NMAD}$)**: The Normalized Median Absolute Deviation, which provides a robust measure of the spread of the error. It is defined as:
+
   $$1.4826 \times \mathrm{median}\left(\frac{|\Delta z - Bias|}{1 + z_{true}}\right)$$
+
 * **Outlier Fraction ($\eta$)**: The proportion of catastrophic failures where the prediction deviates significantly from the truth. An outlier is defined as any prediction where:
   $$|\Delta z| > 0.15 \cdot (1 + z_{true})$$
 
 ### 6.5 Model Uncertainty (NLL)
-Models are highly encouraged to predict not just a point estimate ($z_{pred}$), but also the uncertainty of that prediction via a standard deviation column (`Z_PRED_STD`). If provided, the pipeline calculates the Negative Log-Likelihood (NLL) to evaluate the quality of these confidence bounds. 
+Models are highly encouraged to predict not just a point estimate ($z_{pred}$), but also the uncertainty of that prediction via a standard deviation column (`Z_PRED_STD`, denoted as $\sigma$). If provided, the pipeline calculates the Negative Log-Likelihood (NLL) to evaluate the quality of these confidence bounds. Assuming a Gaussian error distribution, the NLL for a given prediction is defined as:
 
-Models that successfully predict reliable uncertainties will receive a reduction in their loss via a bonus reward. This is calculated as:
+$$NLL = \frac{1}{2} \ln(2\pi\sigma^2) + \frac{(z_{pred} - z_{true})^2}{2\sigma^2}$$
+
+Models that successfully predict reliable uncertainties will receive a reduction in their loss via a bonus reward. This is calculated using the mean NLL ($\overline{NLL}$) as follows:
 $$Bonus_{NLL} = 0.05 \times \max(0, 1.0 - \overline{NLL})$$
 
 ### 6.6 The Challenge Loss Function
 The ultimate ranking in the challenge is determined by a consolidated Loss function. 
 
-First, the loss for each individual data category ($Loss_{cat}$) is calculated by combining the absolute Bias, the $\sigma_{NMAD}$, and the Outlier Fraction ($\eta$) multiplied by a penalty factor ($C = 1.0$), while subtracting the uncertainty bonus:
-$$Loss_{cat} = |Bias| + \sigma_{NMAD} + C \cdot \eta - Bonus_{NLL}$$
+First, the loss for each individual data category ($Loss_{cat}$) is calculated by combining the absolute Bias, the $\sigma_{NMAD}$, and the Outlier Fraction ($\eta$), while subtracting the uncertainty bonus:
+$$Loss_{cat} = |Bias| + \sigma_{NMAD} + \eta - Bonus_{NLL}$$
 
 Finally, the total score is computed as the weighted sum of the individual category losses:
 $$Loss_{Total} = \sum_{cat} W_{cat} \times Loss_{cat}$$
@@ -152,3 +156,5 @@ The weights ($W_{cat}$) reflect the challenge priorities, placing heavy emphasis
 * **GALAXY_OFFSET**: 0.20
 * **GALAXY_HIGH_Z**: 0.20
 * **QSO**: 0.10
+
+
