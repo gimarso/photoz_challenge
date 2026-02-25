@@ -14,7 +14,7 @@ You must have the following tools installed on your system before beginning:
 
 ## 2. Directory Structure Setup
 
-For the pipeline to run smoothly without modifying any paths in the code, you need to set up a specific folder structure. The datasets must be placed in a `data` folder located exactly one level above the code repository.
+For the pipeline to run smoothly without modifying any paths in the code, you need to set up a specific folder structure. The datasets must be placed in a `data` folder located at the level above the code repository.
 
 Your final workspace should look exactly like this:
 
@@ -23,7 +23,7 @@ Workspace_Folder/
 ├── data/
 │   ├── training_set.h5
 │   ├── validation_set.h5
-│   └── test_set.h5
+│   └── blind_test_set.h5
 └── photoz_challenge/
     ├── config.yaml
     ├── train_model.py
@@ -52,37 +52,45 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+
 ## 4. Running the Pipeline (Command Line)
 
-Once your environment is active and your data is properly placed in the `../data/` directory, you can run the different stages of the pipeline sequentially using the provided Python scripts:
+Once your environment is active and your data is properly placed in the `./data/` directory, you can run the different stages of the pipeline sequentially using the provided Python scripts:
 
 * **Train the Model:**
-  Trains the neural network using `training_set.h5` and saves the model weights in the `../models/` directory according to your `config.yaml`.
-  ```bash
+  Trains the ML algorithm using `training_set.h5` and saves the model weights in the `./models/` directory according to your `config.yaml`. By default, the pipeline includes two models: an Artificial Neural Network (ANN) and a Random Forest (RF). The Random Forest model is particularly useful as it can predict uncertainty by estimating the standard deviation across its individual trees. You can easily tune various hyperparameters in the `config.yaml` file; for instance, you can modify `hidden_layers`, `dropout_rates`, `epochs`, and `learning_rate` for the ANN, or adjust `n_estimators` and `max_depth` for the RF. Please note that these provided algorithms are just a baseline starting point—each team is expected to design and implement their own custom models.
+  bash
   python train_model.py
-  ```
+  
 
 * **Evaluate on Validation Set:**
-  Loads the trained model, runs inference on `validation_set.h5`, and generates detailed evaluation plots (PDFs) in the `../pdf/` directory.
-  ```bash
+  Loads the trained model, runs inference on `validation_set.h5`, and generates detailed evaluation plots (PDFs) in the `./pdf/` directory. The generated evaluation report includes the following visualizations:
+  * **Page 1:** Scatter plots comparing Predicted vs True Redshift, displaying both point density and color-coding by iSDSS magnitude for Galaxies and QSOs.
+  * **Page 2:** Binned performance metrics—Bias, precision (Sigma_NMAD), and Outlier Fraction—evaluated against iSDSS magnitude and True Z for Galaxies.
+  * **Page 3 (Conditional):** Scatter plots showing the Negative Log-Likelihood (NLL) versus True Redshift. This page is only generated if your chosen model outputs predictive uncertainty (Z_PRED_STD).
+  bash
   python test_validation.py
-  ```
+  
 
-* **Evaluate on Test Set:**
-  Similar to the validation step, but runs inference and generates evaluation metrics specifically for the `test_set.h5`.
-  ```bash
-  python test_test.py
-  ```
+* **Generate Predictions for Blind Test Set:**
+  The traditional test set has been replaced with a completely blind dataset (`blind_test_set.h5`). Because you do not have the true labels, this step does not evaluate metrics locally; instead, it runs inference to prepare your final challenge submission. Executing this script will output a CSV file containing your model's predictions (`Z_PRED`) alongside its estimated uncertainty (`Z_PRED_STD`), provided your algorithm supports error estimation.
+  bash
+  python predict_test_set.py
+  
 
 * **Visualize Datasets:**
   Generates diagnostic plots (Redshift distribution, Color-Magnitude, etc.) for a specific dataset. By default, it looks at the validation set, but you can pass any file path.
-  ```bash
+  bash
   python visualize_data.py --file ../data/validation_set.h5
-  ```
+
+
+
+
+
 
 ## 5. Running the Pipeline (Jupyter Notebook)
 
-Alternatively, you can run and interact with the pipeline using JupyterLab. This approach is highly recommended for exploring the data interactively, debugging, and visualizing results step-by-step within a modern IDE environment.
+Alternatively, you can run and interact with the pipeline using JupyterLab.
 
 **Step 5.1:** Launch JupyterLab from your terminal (make sure the `photoz_env` environment is activated first):
 ```bash
@@ -94,24 +102,24 @@ jupyter lab
 
 ## 6. Model Evaluation & Challenge Metrics
 
-The evaluation of models submitted to the Photo-Z Challenge is strictly designed to test standard predictive accuracy, robustness against Out-of-Distribution (OOD) data, and the ability to estimate predictive uncertainty. 
+The evaluation of models submitted to the Photo-Z Challenge is  designed to test standard predictive accuracy, robustness against Out-of-Distribution (OOD) data, and the ability to estimate predictive uncertainty. 
 
 ### 6.1 Training Set Composition
 The model will learn from a baseline dataset representing nominal observational conditions. The training set is composed of:
 * **Galaxies**: 300,000 samples restricted to redshifts where z < 1.
-* **QSOs (Quasars)**: 20,000 samples spanning the entire available redshift range.
+* **QSOs (Quasars)**: 20,000 samples with resdsfhit in the range 0 < z < 4.
 
 ### 6.2 Validation Set Composition
 To monitor overfitting and assist in hyperparameter tuning during the training phase, a validation set is provided with the same underlying distribution as the training data:
 * **Galaxies**: 30,000 samples with z < 1.
-* **QSOs**: 5,000 samples spanning the full redshift range.
+* **QSOs**: 5,000 samples  with resdsfhit in the range 0 < z < 4.
 
 ### 6.3 Test Set & Out-of-Distribution (OOD) Scenarios
 The final test set consists of 150,000 total unique instances divided equally into five distinct categories of 30,000 samples each to rigorously test model resilience:
 * **GALAXY_ID**: The baseline control group consisting of standard galaxies with z < 1.
 * **GALAXY_MISSING_BANDS (OOD)**: Galaxies where between 50% and 100% of the J-PAS photometric bands have been randomly masked and replaced with NaN values.
 * **GALAXY_OFFSET (OOD)**: Galaxies where between 0 and 20 photometric bands have been multiplied by an extreme random offset factor ranging between -20 and 20.
-* **GALAXY_HIGH_Z (OOD)**: Galaxies located at higher redshifts beyond the training distribution, specifically z > 1.
+* **GALAXY_HIGH_Z (OOD)**: Galaxies located at higher redshifts beyond the training distribution, i.e. 1 < z < 1.6
 * **QSO**: Quasars spanning the full redshift range.
 
 ### 6.4 Optimization Metrics
