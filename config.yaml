@@ -1,11 +1,11 @@
 experiment:
-  group_name: "photoz_snake"
-  save_dir: "../models/"
+  group_name: "RF_tiguer"
+  save_dir: "models/"
 
 data:
-  train_path: "../data/training_set.h5"
-  val_path: "../data/validation_set.h5"
-  batch_size: 10000
+  train_path: "data/training_set.h5"
+  val_path: "data/validation_set.h5"
+  batch_size: 1000
   target_col: "Z" 
   inputs:
     FilterJPAS: [
@@ -22,15 +22,21 @@ data:
       "MAG_H_2MASS","MAG_Ks_2MASS",'MAG_W1','MAG_W2','MAG_W3','MAG_W4', 'iSDSS'
     ]
 
-
   selected_features: ["FilterJPAS", "MAGNITUDES"] 
   
   features_to_normalize: ["MAGNITUDES"] 
 
 model:
-  hidden_layers: [512, 256]
+  type: "random_forest" # Options: "neural_net", "random_forest"
+  
+  # Neural network parameters
+  hidden_layers: [512,256,64]
   dropout_rates: [0.2, 0.2] 
   output_size: 1
+  
+  # Random Forest parameters
+  n_estimators: 500
+  max_depth: 100
 
 training:
   epochs: 50

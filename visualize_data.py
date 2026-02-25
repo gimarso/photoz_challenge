@@ -4,12 +4,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# --- 1. ENVIRONMENT CONFIGURATION ---
-os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
-os.environ["NUMEXPR_NUM_THREADS"] = "1"
 
 # --- 2. PLOTTING STYLE SETTINGS ---
 plt.style.use('dark_background')
@@ -67,7 +61,7 @@ def plot_dataset(file_path):
 
     # --- Setup Output Directory ---
     # Create ../pdf/ relative to current script execution dir
-    output_dir = os.path.join(os.getcwd(), '..', 'pdf')
+    output_dir = os.path.join(os.getcwd(), './pdf')
     os.makedirs(output_dir, exist_ok=True)
 
     base_name = os.path.basename(file_path).replace('.h5', '')
@@ -182,7 +176,7 @@ def plot_dataset(file_path):
 # --- 3. MAIN EXECUTION ---
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Visualize Photo-Z Datasets")
-    default_path = '/home/users/dae/gimarso/AI_course_photoz/data/validation_set.h5'
+    default_path = './data/validation_set.h5'
     
     parser.add_argument('--file', type=str, default=default_path,
                         help='Path to the .h5 file to visualize')
