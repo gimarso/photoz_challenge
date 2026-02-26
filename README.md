@@ -5,30 +5,29 @@
 
 Welcome to the Photo-Z Challenge! This guide provides step-by-step instructions to set up your Python environment, install all required dependencies, and run the machine learning pipeline on your local machine. It is fully compatible with both Windows and macOS.
 
-## 1. Prerequisites
+## 1. Prerequisites 🛠️
 
-You must have the following tools installed on your system before beginning:
+You must have the following tools installed on your system before beginning: 🚀
 
-* **Git:** Required to download the repository and version control your changes. You can download and install it from the official Git website (https://git-scm.com/downloads).
-* **Miniconda (Recommended) or Anaconda:** This is the most reliable way to manage Python environments and complex libraries across different operating systems. Download it from the official Anaconda website (https://docs.anaconda.com/free/miniconda/).
+* 🐙 **Git:** Required to download the repository and version control your changes. You can download and install it from the official Git website (https://git-scm.com/downloads).
+* 🐍 **Miniconda (Recommended) or Anaconda:** This is the most reliable way to manage Python environments and complex libraries across different operating systems. Download it from the official Anaconda website (https://docs.anaconda.com/free/miniconda/).
 
-## 2. Directory Structure Setup
+## 2. Directory Structure Setup 📂
 
-For the pipeline to run smoothly without modifying any paths in the code, you need to set up a specific folder structure. The datasets must be placed in a `data` folder located at the level above the code repository.
+For the pipeline to run smoothly without modifying any paths in the code, you need to set up a specific folder structure. 🏗️ The datasets must be placed in a `data` folder located at the level above the code repository. 📊
 
-Your final workspace should look exactly like this:
+Your final workspace should look exactly like this: 👇
 
 ```text
-Workspace_Folder/
-├── data/
-│   ├── training_set.h5
-│   ├── validation_set.h5
-│   └── blind_test_set.h5
-└── photoz_challenge/
-    ├── config.yaml
-    ├── train_model.py
+Workspace_Folder/ 🖥️
+├── data/ 📁
+│   ├── training_set.h5 📄
+│   ├── validation_set.h5 📄
+│   └── blind_test_set.h5 📄
+└── photoz_challenge/ 💻
+    ├── config.yaml ⚙️
+    ├── train_model.py 🐍
     └── ...
-```
 
 ## 3. Download and Environment Setup
 
@@ -157,7 +156,7 @@ The weights ($W_{cat}$) reflect the challenge priorities, placing heavy emphasis
 * **GALAXY_HIGH_Z**: 0.20
 * **QSO**: 0.10
 
-The results will look something like this:
+## 7. COMPETITION RESULTS 
 <p align="center">
   <img src="metrics.png" alt="Evaluation Metrics Overview" width="800"/>
 </p>
