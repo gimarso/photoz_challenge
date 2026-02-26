@@ -142,7 +142,7 @@ Models that successfully predict reliable uncertainties will receive a reduction
 $$Bonus_{NLL} = 0.05 \times \max(0, 1.0 - \overline{NLL})$$
 
 ### 6.6 The Challenge Loss Function
-The ultimate ranking in the challenge is determined by a consolidated Loss function. 
+The ultimate ranking in the challenge is determined by a Loss function. 
 
 First, the loss for each individual data category ($Loss_{cat}$) is calculated by combining the absolute Bias, the $\sigma_{NMAD}$, and the Outlier Fraction ($\eta$), while subtracting the uncertainty bonus:
 $$Loss_{cat} = |Bias| + \sigma_{NMAD} + \eta - Bonus_{NLL}$$
@@ -156,5 +156,9 @@ The weights ($W_{cat}$) reflect the challenge priorities, placing heavy emphasis
 * **GALAXY_OFFSET**: 0.20
 * **GALAXY_HIGH_Z**: 0.20
 * **QSO**: 0.10
+
+<p align="center">
+  <img src="metrics.png" alt="Evaluation Metrics Overview" width="800"/>
+</p>
 
 
