@@ -49,12 +49,12 @@ conda create -n photoz_env python=3.10 -y
 conda activate photoz_env
 ```
 
-**Step 3.3:** Install all necessary dependencies (PyTorch, Pandas, Matplotlib, JupyterLab, etc.) using `pip` and the `requirements.txt` file. This hybrid approach ensures optimal compatibility and faster installation.
+**Step 3.3:** Install all necessary dependencies 📦 (PyTorch, Pandas, Matplotlib, JupyterLab, etc.) using `pip` and the `requirements.txt` file. 📜 This hybrid approach ensures optimal compatibility and faster installation. ⚡
+
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
 
 ## 4. Running the Pipeline (Command Line)
 
