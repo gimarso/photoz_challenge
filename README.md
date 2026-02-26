@@ -33,17 +33,17 @@ Workspace_Folder/ 🖥️
 ```
 
 
-## 3. Download and Environment Setup
+## 3. Download and Environment Setup ⬇️💻
 
-Open your terminal (macOS) or Anaconda Prompt (Windows) and execute the following commands in order.
+Open your terminal (macOS 🍎) or Anaconda Prompt (Windows 🪟) and execute the following commands in order. 🧑‍💻
 
-**Step 3.1:** Clone the repository to your local machine.
+**Step 3.1:** Clone the repository to your local machine. 📥
 ```bash
 git clone [https://github.com/gimarso/photoz_challenge.git](https://github.com/gimarso/photoz_challenge.git)
 cd photoz_challenge
 ```
+**Step 3.2:** Create the virtual environment with a base Python 3.10 installation using Conda, and activate it. 🪄 You must do this every time you open a new terminal to run the project. ⚠️
 
-**Step 3.2:** Create the virtual environment with a base Python 3.10 installation using Conda, and activate it. You must do this every time you open a new terminal to run the project.
 ```bash
 conda create -n photoz_env python=3.10 -y
 conda activate photoz_env
