@@ -141,54 +141,69 @@ The model will learn from a baseline dataset representing nominal observational 
 * ✨ **QSOs (Quasars)**: 20,000 samples with redshift in the range 0 < z < 4.
 
 
+### 6.2 Validation Set Composition 🧪
+To monitor overfitting and assist in hyperparameter tuning during the training phase ⚙️, a validation set is provided with the same underlying distribution as the training data: ⚖️
+* 🌌 **Galaxies**: 30,000 samples with z < 1.
+* ✨ **QSOs**: 5,000 samples with redshift in the range 0 < z < 4.
 
-### 6.2 Validation Set Composition
-To monitor overfitting and assist in hyperparameter tuning during the training phase, a validation set is provided with the same underlying distribution as the training data:
-* **Galaxies**: 30,000 samples with z < 1.
-* **QSOs**: 5,000 samples  with resdsfhit in the range 0 < z < 4.
+### 6.3 Test Set & Out-of-Distribution (OOD) Scenarios 🌪️🔬
+The final test set consists of 150,000 total unique instances divided equally into five distinct categories of 30,000 samples each to rigorously test model resilience: 🦾
+* 🟢 **GALAXY_ID**: The baseline control group consisting of standard galaxies with z < 1.
+* 🕳️ **GALAXY_MISSING_BANDS (OOD)**: Galaxies where between 50% and 100% of the J-PAS photometric bands have been randomly masked and replaced with NaN values.
+* 📈 **GALAXY_OFFSET (OOD)**: Galaxies where between 0 and 20 photometric bands have been multiplied by an extreme random offset factor ranging between -20 and 20.
+* 🔭 **GALAXY_HIGH_Z (OOD)**: Galaxies located at higher redshifts beyond the training distribution, i.e. 1 < z < 1.6
+* 🌠 **QSO**: Quasars spanning the full redshift range.
 
-### 6.3 Test Set & Out-of-Distribution (OOD) Scenarios
-The final test set consists of 150,000 total unique instances divided equally into five distinct categories of 30,000 samples each to rigorously test model resilience:
-* **GALAXY_ID**: The baseline control group consisting of standard galaxies with z < 1.
-* **GALAXY_MISSING_BANDS (OOD)**: Galaxies where between 50% and 100% of the J-PAS photometric bands have been randomly masked and replaced with NaN values.
-* **GALAXY_OFFSET (OOD)**: Galaxies where between 0 and 20 photometric bands have been multiplied by an extreme random offset factor ranging between -20 and 20.
-* **GALAXY_HIGH_Z (OOD)**: Galaxies located at higher redshifts beyond the training distribution, i.e. 1 < z < 1.6
-* **QSO**: Quasars spanning the full redshift range.
+### 📊 6.4 Optimization Metrics
 
-### 6.4 Optimization Metrics
-For each category, predictions are evaluated by comparing the predicted redshift ($z_{pred}$) to the true redshift ($z_{true}$). We define the redshift error as $\Delta z = z_{pred} - z_{true}$. The specific metrics optimized are:
+For each category, predictions are evaluated by comparing the predicted redshift ($z_{pred}$) to the true redshift ($z_{true}$). We define the redshift error as $\Delta z = z_{pred} - z_{true}$. 📏
 
-* **Bias**: Measured as the median of the redshift error.
-* **Precision ($\sigma_{NMAD}$)**: The Normalized Median Absolute Deviation, which provides a robust measure of the spread of the error. It is defined as:
+The specific metrics optimized are:
+
+* ⚖️ **Bias**: Measured as the median of the redshift error.
+* 🔍 **Precision ($\sigma_{NMAD}$)**: The Normalized Median Absolute Deviation, which provides a robust measure of the spread of the error. It is defined as:
 
   $$1.4826 \times \mathrm{median}\left(\frac{|\Delta z - Bias|}{1 + z_{true}}\right)$$
 
-* **Outlier Fraction ($\eta$)**: The proportion of catastrophic failures where the prediction deviates significantly from the truth. An outlier is defined as any prediction where:
+* 🚩 **Outlier Fraction ($\eta$)**: The proportion of "catastrophic failures" 🙀 where the prediction deviates significantly from the truth. An outlier is defined as any prediction where:
+  
   $$|\Delta z| > 0.15 \cdot (1 + z_{true})$$
 
-### 6.5 Model Uncertainty (NLL)
-Models are highly encouraged to predict not just a point estimate ($z_{pred}$), but also the uncertainty of that prediction via a standard deviation column (`Z_PRED_STD`, denoted as $\sigma$). If provided, the pipeline calculates the Negative Log-Likelihood (NLL) to evaluate the quality of these confidence bounds. Assuming a Gaussian error distribution, the NLL for a given prediction is defined as:
+### 🎯 6.5 Model Uncertainty (NLL) 🎲
+
+Models are highly encouraged to predict not just a point estimate ($z_{pred}$) 📌, but also the uncertainty of that prediction via a standard deviation column (`Z_PRED_STD`, denoted as $\sigma$) 📏. If provided, the pipeline calculates the Negative Log-Likelihood (NLL) to evaluate the quality of these confidence bounds 📉. Assuming a Gaussian error distribution 🔔, the NLL for a given prediction is defined as:
 
 $$NLL = \frac{1}{2} \ln(2\pi\sigma^2) + \frac{(z_{pred} - z_{true})^2}{2\sigma^2}$$
 
-Models that successfully predict reliable uncertainties will receive a reduction in their loss via a bonus reward. This is calculated using the mean NLL ($\overline{NLL}$) as follows:
+Models that successfully predict reliable uncertainties will receive a reduction in their loss via a bonus reward! 🎁✨ This is calculated using the mean NLL ($\overline{NLL}$) as follows ⬇️:
+
 $$Bonus_{NLL} = 0.05 \times \max(0, 1.0 - \overline{NLL})$$
 
-### 6.6 The Challenge Loss Function
-The ultimate ranking in the challenge is determined by a Loss function. 
+### 🏆 6.6 The Challenge Loss Function
 
-First, the loss for each individual data category ($Loss_{cat}$) is calculated by combining the absolute Bias, the $\sigma_{NMAD}$, and the Outlier Fraction ($\eta$), while subtracting the uncertainty bonus:
+The ultimate ranking in the challenge is determined by a Loss function. 🥇
+
+First, the loss for each individual data category ($Loss_{cat}$) is calculated by combining the absolute Bias, the $\sigma_{NMAD}$, and the Outlier Fraction ($\eta$), while subtracting the uncertainty bonus: 🧩
+
 $$Loss_{cat} = |Bias| + \sigma_{NMAD} + \eta - Bonus_{NLL}$$
 
-Finally, the total score is computed as the weighted sum of the individual category losses:
+Finally, the total score is computed as the weighted sum of the individual category losses: 📈
+
 $$Loss_{Total} = \sum_{cat} W_{cat} \times Loss_{cat}$$
 
-The weights ($W_{cat}$) reflect the challenge priorities, placing heavy emphasis on standard performance while enforcing baseline OOD robustness:
-* **GALAXY_ID**: 0.30
-* **GALAXY_MISSING_BANDS**: 0.20
-* **GALAXY_OFFSET**: 0.20
-* **GALAXY_HIGH_Z**: 0.20
-* **QSO**: 0.10
+The weights ($W_{cat}$) reflect the challenge priorities, placing heavy emphasis on standard performance while enforcing baseline OOD robustness: 🎯
+
+* 🌌 **GALAXY_ID**: 0.30
+* 👻 **GALAXY_MISSING_BANDS**: 0.20
+* 📏 **GALAXY_OFFSET**: 0.20
+* 🔭 **GALAXY_HIGH_Z**: 0.20
+* ✨ **QSO**: 0.10
+
+### 🎁 6.7 Scalability Bonus: Level Up!
+
+Any team that manages to bring their total loss below **0.35** will unlock a special reward! 🔓
+
+We will gift you an extra **Training Set + Validation Set** 🧪 to help you scale your model even further and reach new heights! 🚀 Show us what your architecture is capable of! 🔥
 
 ## 7. COMPETITION RESULTS 
 <p align="center">
