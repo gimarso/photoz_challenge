@@ -1,5 +1,5 @@
 experiment:
-  group_name: "RF_tiguer"
+  group_name: "ANN_turtle"
   save_dir: "models/"
 
 data:
@@ -27,11 +27,11 @@ data:
   features_to_normalize: ["MAGNITUDES"] 
 
 model:
-  type: "random_forest" # Options: "neural_net", "random_forest"
+  type: "neural_net" # Options: "neural_net", "random_forest"
   
   # Neural network parameters
-  hidden_layers: [512,256,64]
-  dropout_rates: [0.2, 0.2] 
+  hidden_layers: [512,512,512]
+  dropout_rates: [0.3, 0.3] 
   output_size: 1
   
   # Random Forest parameters
@@ -39,6 +39,6 @@ model:
   max_depth: 100
 
 training:
-  epochs: 50
+  epochs: 100
   learning_rate: 0.001
   loss_type: "deltaz"
