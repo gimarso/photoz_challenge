@@ -56,9 +56,6 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## 4. Running the Pipeline (Command Line)
-
-Once your environment is active and your data is properly placed in the `./data/` directory, you can run the different stages of the pipeline sequentially using the provided Python scripts:
 
 ## 4. Running the Pipeline (Command Line) 🏃‍♂️💻
 
@@ -108,14 +105,18 @@ python test_validation.py
 python predict_test_set.py
 ```
 
-* **Visualize Datasets:**
-  Generates diagnostic plots (Redshift distribution, Color-Magnitude, etc.) for a specific dataset. By default, it looks at the validation set, but you can pass any file path.
-  bash
-  python visualize_data.py --file ../data/validation_set.h5
+## 📊 Visualize Datasets
 
+Generate diagnostic plots 📈 to inspect your data (such as **Redshift distribution** 🌌 or **Color-Magnitude** diagrams 🎨):
 
+```bash
+python visualize_data.py --file ./data/validation_set.h5
+```
+You can also visualize the Spectral Energy Distribution 🌈 of galaxiesand QSOs for specific objects:
 
-
+```bash
+python plot_objects.py
+```
 
 
 ## 5. Running the Pipeline (Jupyter Notebook)
