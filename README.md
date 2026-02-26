@@ -72,6 +72,7 @@ Once your environment is active 🟢 and your data is properly placed in the `./
   <img src="ANN.png" alt="" width="800"/>
 </p>
 
+  The Random Forest model  can predict uncertainty by estimating the standard deviation across its individual trees. 🌳 You can easily tune various hyperparameters in the `config.yaml` file 🛠️; for instance, you can modify `hidden_layers`, `dropout_rates`, `epochs`, and `learning_rate` for the ANN 📉, or adjust `n_estimators` and `max_depth` for the RF 📈. Please note that these provided algorithms are just a baseline starting point 🏁 — each team is expected to design and implement their own custom models. 🧑‍💻👩‍💻
 
   
 <p align="center">
@@ -79,28 +80,33 @@ Once your environment is active 🟢 and your data is properly placed in the `./
 </p>
 
 
-  The Random Forest model  can predict uncertainty by estimating the standard deviation across its individual trees. 🌳 You can easily tune various hyperparameters in the `config.yaml` file 🛠️; for instance, you can modify `hidden_layers`, `dropout_rates`, `epochs`, and `learning_rate` for the ANN 📉, or adjust `n_estimators` and `max_depth` for the RF 📈. Please note that these provided algorithms are just a baseline starting point 🏁 — each team is expected to design and implement their own custom models. 🧑‍💻👩‍💻
+
 
 ```bash
 python train_model.py
 ```
 
-
-
-* **Evaluate on Validation Set:**
-  Loads the trained model, runs inference on `validation_set.h5`, and generates detailed evaluation plots (PDFs) in the `./pdf/` directory. The generated evaluation report includes the following visualizations:
-  * **Page 1:** Scatter plots comparing Predicted vs True Redshift, displaying both point density and color-coding by iSDSS magnitude for Galaxies and QSOs.
-  * **Page 2:** Binned performance metrics—Bias, precision ($\sigma_{NMAD}$), and Outlier Fraction—evaluated against iSDSS magnitude and True Z for Galaxies.
-  * **Page 3 (Conditional):** Scatter plots showing the Negative Log-Likelihood (NLL) versus True Redshift. This page is only generated if your chosen model outputs predictive uncertainty (Z_PRED_STD).
-  bash
-  python test_validation.py
+* 📊 **Evaluate on Validation Set:**
+  Loads the trained model 🧠, runs inference on `validation_set.h5` 🔍, and generates detailed evaluation plots (PDFs) in the `./pdf/` directory 📂. The generated evaluation report includes the following visualizations: 📈
   
-
-* **Generate Predictions for Blind Test Set:**
-  The traditional test set has been replaced with a completely blind dataset (`blind_test_set.h5`). Because you do not have the true labels, this step does not evaluate metrics locally; instead, it runs inference to prepare your final challenge submission. Executing this script will output a CSV file containing your model's predictions (`Z_PRED`) alongside its estimated uncertainty (`Z_PRED_STD`), provided your algorithm supports error estimation.
-  bash
-  python predict_test_set.py
+  * **Page 1:** 🌌 Scatter plots comparing Predicted vs True Redshift, displaying both point density and color-coding by iSDSS magnitude for Galaxies and QSOs.
   
+  
+  * **Page 2:** 📉 Binned performance metrics—Bias, precision ($\sigma_{NMAD}$), and Outlier Fraction—evaluated against iSDSS magnitude and True Z for Galaxies.
+  
+  * **Page 3 (Conditional):** 🎲 Scatter plots showing the Negative Log-Likelihood (NLL) versus True Redshift. This page is only generated if your chosen model outputs predictive uncertainty (Z_PRED_STD). ⚖️
+
+```bash
+python test_validation.py
+```
+
+
+* 🙈 **Generate Predictions for Blind Test Set:**
+  The traditional test set has been replaced with a completely blind dataset (`blind_test_set.h5`). 🕵️‍♂️ Because you do not have the true labels, this step does not evaluate metrics locally 🚫; instead, it runs inference to prepare your final challenge submission. 🏆 Executing this script will output a CSV file 📄 containing your model's predictions (`Z_PRED`) alongside its estimated uncertainty (`Z_PRED_STD`) 🎯, provided your algorithm supports error estimation. ⚖️
+
+```bash
+python predict_test_set.py
+```
 
 * **Visualize Datasets:**
   Generates diagnostic plots (Redshift distribution, Color-Magnitude, etc.) for a specific dataset. By default, it looks at the validation set, but you can pass any file path.
@@ -124,14 +130,17 @@ jupyter lab
 **Step 5.2:** Your default web browser will automatically open. Navigate through the directory tree, open the `.ipynb` notebook file included in the repository, and run the cells sequentially to execute the pipeline.
 
 
-## 6. Model Evaluation & Challenge Metrics
 
-The evaluation of models submitted to the Photo-Z Challenge is  designed to test standard predictive accuracy, robustness against Out-of-Distribution (OOD) data, and the ability to estimate predictive uncertainty. 
+## 6. Model Evaluation & Challenge Metrics 🏆📉
 
-### 6.1 Training Set Composition
-The model will learn from a baseline dataset representing nominal observational conditions. The training set is composed of:
-* **Galaxies**: 300,000 samples restricted to redshifts where z < 1.
-* **QSOs (Quasars)**: 20,000 samples with resdsfhit in the range 0 < z < 4.
+The evaluation of models submitted to the Photo-Z Challenge 🚀 is designed to test standard predictive accuracy 🎯, robustness against Out-of-Distribution (OOD) data 🛡️, and the ability to estimate predictive uncertainty. 🎲
+
+### 6.1 Training Set Composition 📊
+The model will learn from a baseline dataset representing nominal observational conditions. 🔭 The training set is composed of: 📚
+* 🌌 **Galaxies**: 300,000 samples restricted to redshifts where z < 1.
+* ✨ **QSOs (Quasars)**: 20,000 samples with redshift in the range 0 < z < 4.
+
+
 
 ### 6.2 Validation Set Composition
 To monitor overfitting and assist in hyperparameter tuning during the training phase, a validation set is provided with the same underlying distribution as the training data:
