@@ -205,12 +205,22 @@ Any team that manages to bring their total loss below **0.35** will unlock a spe
 
 We will gift you an extra **Training Set + Validation Set** 🧪 to help you scale your model even further and reach new heights! 🚀 Show us what your architecture is capable of! 🔥
 
-## 7. COMPETITION RESULTS 
+
+## 🏁 7. COMPETITION RESULTS 
+
+Get a glimpse of the action! ⚡ Below are some examples of how the competition tracking and the final standings will look:
+
 <p align="center">
   <img src="metrics.png" alt="Evaluation Metrics Overview" width="800"/>
+  <br>
+  <em>📈 Real-time performance tracking for your models!</em>
 </p>
 
 <p align="center">
-  <img src="Leaderoard.png" alt="" width="800"/>
+  <img src="Leaderoard.png" alt="Leaderboard Preview" width="800"/>
+  <br>
+  <em>🏆 The race to the top: how the Leaderboard will be displayed.</em>
 </p>
 
+> [!NOTE]
+> 💡 **Please note:** The images above are **mockups** to show you the look and feel of the competition. Your actual results will appear here once the challenge kicks off! 🚀
