@@ -47,10 +47,13 @@ Extract the data (.h5 files)
 ```bash
 unzip photoz_challenge_data.zip
 ```
-Clean up the zip file to save space
+Clean up the zip file to save space and rearange the folder directory
 ```bash
 rm photoz_challenge_data.zip
+mv photoz_data/* .
+rm -rf photoz_data 
 ```
+
 
 
 Your final workspace should look exactly like this: 👇
