@@ -21,7 +21,7 @@ For the pipeline to run smoothly without modifying any paths in the code, you ne
 
 **Step 2.1:**  Create the directory structure
 
-From your terminal, prepare your workspace by creating the necessary folders and cloning the repository to your local machine. 📥
+From your terminal, prepare your workspace by creating the necessary folders and cloning the repository to your local machine. 
 
 ```bash
 git clone [https://github.com/gimarso/photoz_challenge.git](https://github.com/gimarso/photoz_challenge.git)
@@ -32,24 +32,22 @@ cd photoz_challenge
 
 The synthetic data (mocks) used for the challenge are hosted on the cloud of the Instituto de Astrofísica de Andalucía (IAA-CSIC).
 
-Option A: Direct Download (Browser)
+* **Option A**: Direct Download (Browser)
 Click on the following public link to download the complete folder as a ZIP file, and then extract its contents into your newly created Workspace_Folder/data directory:
 ```bash
 https://cloud.iaa.es/index.php/s/mJmJMd5CQamyxoL/download
 ```
-Option B: Command Line (Terminal)
+* **Option B**: Command Line (Terminal)
 If you are working on a remote server or prefer using the terminal, you can download and extract the ZIP file directly into your data folder:
-cd data
-
-# Download the file
 ```bash
+cd data
 wget -O photoz_challenge_data.zip "https://cloud.iaa.es/index.php/s/mJmJMd5CQamyxoL/download"
 ```
-# Extract the data (.h5 files)
+Extract the data (.h5 files)
 ```bash
 unzip photoz_challenge_data.zip
 ```
-# Clean up the zip file to save space
+Clean up the zip file to save space
 ```bash
 rm photoz_challenge_data.zip
 ```
