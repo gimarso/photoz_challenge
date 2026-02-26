@@ -60,11 +60,32 @@ pip install -r requirements.txt
 
 Once your environment is active and your data is properly placed in the `./data/` directory, you can run the different stages of the pipeline sequentially using the provided Python scripts:
 
-* **Train the Model:**
-  Trains the ML algorithm using `training_set.h5` and saves the model weights in the `./models/` directory according to your `config.yaml`. By default, the pipeline includes two models: an Artificial Neural Network (ANN) and a Random Forest (RF). The Random Forest model is particularly useful as it can predict uncertainty by estimating the standard deviation across its individual trees. You can easily tune various hyperparameters in the `config.yaml` file; for instance, you can modify `hidden_layers`, `dropout_rates`, `epochs`, and `learning_rate` for the ANN, or adjust `n_estimators` and `max_depth` for the RF. Please note that these provided algorithms are just a baseline starting point—each team is expected to design and implement their own custom models.
-  bash
-  python train_model.py
+## 4. Running the Pipeline (Command Line) 🏃‍♂️💻
+
+Once your environment is active 🟢 and your data is properly placed in the `./data/` directory 🗂️, you can run the different stages of the pipeline sequentially using the provided Python scripts: 🐍
+
+* 🧠 **Train the Model:**
+  Trains the ML algorithm using `training_set.h5` 🏋️‍♂️ and saves the model weights in the `./models/` directory 💾 according to your `config.yaml` ⚙️. By default, the pipeline includes two models: an Artificial Neural Network (ANN) 🕸️ and a Random Forest (RF) 🌲. 
   
+  
+<p align="center">
+  <img src="ANN.png" alt="" width="800"/>
+</p>
+
+
+  
+<p align="center">
+  <img src="RF.png" alt="" width="800"/>
+</p>
+
+
+  The Random Forest model  can predict uncertainty by estimating the standard deviation across its individual trees. 🌳 You can easily tune various hyperparameters in the `config.yaml` file 🛠️; for instance, you can modify `hidden_layers`, `dropout_rates`, `epochs`, and `learning_rate` for the ANN 📉, or adjust `n_estimators` and `max_depth` for the RF 📈. Please note that these provided algorithms are just a baseline starting point 🏁 — each team is expected to design and implement their own custom models. 🧑‍💻👩‍💻
+
+```bash
+python train_model.py
+```
+
+
 
 * **Evaluate on Validation Set:**
   Loads the trained model, runs inference on `validation_set.h5`, and generates detailed evaluation plots (PDFs) in the `./pdf/` directory. The generated evaluation report includes the following visualizations:
