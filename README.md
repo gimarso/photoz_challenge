@@ -157,8 +157,12 @@ The weights ($W_{cat}$) reflect the challenge priorities, placing heavy emphasis
 * **GALAXY_HIGH_Z**: 0.20
 * **QSO**: 0.10
 
+The results will look something like this:
 <p align="center">
   <img src="metrics.png" alt="Evaluation Metrics Overview" width="800"/>
 </p>
 
+<p align="center">
+  <img src="Leaderoard.png" alt="" width="800"/>
+</p>
 
