@@ -47,7 +47,7 @@ Extract the data (.h5 files)
 ```bash
 unzip photoz_challenge_data.zip
 ```
-Clean up the zip file to save space and rearange the folder directory
+Clean up the zip file to save space and rearange the data folder
 ```bash
 rm photoz_challenge_data.zip
 mv photoz_data/* .
