@@ -12,6 +12,8 @@ You must have the following tools installed on your system before beginning: �
 * 🐙 **Git:** Required to download the repository and version control your changes. You can download and install it from the official Git website (https://git-scm.com/downloads).
 * 🐍 **Miniconda (Recommended) or Anaconda:** This is the most reliable way to manage Python environments and complex libraries across different operating systems. Download it from the official Anaconda website (https://docs.anaconda.com/free/miniconda/).
 
+
+
 ## 2. Directory Structure Setup 📂
 
 For the pipeline to run smoothly without modifying any paths in the code, you need to set up a specific folder structure. 🏗️ The datasets must be placed in a `data` folder located at the level above the code repository. 📊
@@ -28,6 +30,8 @@ Workspace_Folder/ 🖥️
     ├── config.yaml ⚙️
     ├── train_model.py 🐍
     └── ...
+```
+
 
 ## 3. Download and Environment Setup
 
