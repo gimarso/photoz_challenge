@@ -110,6 +110,7 @@ def plot_dataset(file_path):
         ax2.set_ylim(ylims)
         ax2.set_xlim(xlims[1], xlims[0]) # Invertir magnitud (brillante a la izquierda)
         ax2.legend(loc='upper left')
+        
     else:
         ax2.text(0.5, 0.5, "Missing Optical Columns", ha='center')
 
