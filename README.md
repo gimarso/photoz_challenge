@@ -150,7 +150,7 @@ Generate diagnostic plots to inspect your data (such as **Redshift distribution*
 ```bash
 python plot_distributions.py --file ./data/validation_set.h5
 ```
-You can also visualize the Spectral Energy Distribution of galaxiesand QSOs for specific objects:
+You can also visualize the Spectral Energy Distribution of galaxies and QSOs for specific objects:
 
 ```bash
 python plot_SED_objects.py
