@@ -126,7 +126,14 @@ In this step you will train your machine learning model using the **training dat
 The notebook includes baseline implementations such as:
 
 - **Artificial Neural Network (ANN)**
+<p align="center">
+  <img src="ANN.png" alt="" width="800"/>
+</p>
+
 - **Random Forest (RF)**
+<p align="center">
+  <img src="RF.png" alt="" width="800"/>
+</p>
 
 The Random Forest can estimate prediction uncertainty using the **standard deviation across trees**, while the ANN allows flexible architecture design.
 
