@@ -203,7 +203,7 @@ This is useful for:
 
 Once your environment is activated and the data is in `./data/`, the stages of the pipeline can be executed sequentially:
 
-# Step 1 —Visualize Datasets
+### Step 1 —Visualize Datasets
 
 Generate diagnostic plots to inspect your data (such as **Redshift distribution** or **Color-Magnitude** diagrams ):
 
@@ -216,20 +216,20 @@ You can also visualize the Spectral Energy Distribution of galaxies and QSOs for
 python plot_SED_objects.py
 ```
 
-# Step 2 — Train the Model
+### Step 2 — Train the Model
 
 
 ```bash
 python train_model.py
 ```
 
-# Step 3 — Evaluate on Validation Set
+### Step 3 — Evaluate on Validation Set
 
 ```bash
 python test_validation.py
 ```
 
-# Step 4 - Generate the Challenge Submission
+### Step 4 - Generate the Challenge Submission
 
 ```bash
 python submit_predictions.py
