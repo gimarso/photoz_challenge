@@ -91,59 +91,112 @@ pip install -r requirements.txt
 ```
 
 
-## 4. Running the Pipeline (Command Line) 🏃‍♂️💻
-
-**Note:** The pipeline can also be run with jupyter notebook (see next section) but the workfow is pretty similar.
-
-Once your environment is active 🟢 and your data is properly placed in the `./data/` directory , you can run the different stages of the pipeline sequentially using the provided Python scripts: 
-
-* 🧠 **Train the Model:**
-  Trains the ML algorithm using `training_set.h5` 🏋️‍♂️ and saves the model weights in the `./models/` directory 💾 according to your `config.yaml`. By default, the pipeline includes two models: an Artificial Neural Network (ANN)  and a Random Forest (RF). 
-  
-  
-<p align="center">
-  <img src="ANN.png" alt="" width="800"/>
-</p>
-
-  The Random Forest model  can predict uncertainty by estimating the standard deviation across its individual trees. You can easily tune various hyperparameters in the `config.yaml` file ; for instance, you can modify `hidden_layers`, `dropout_rates`, `epochs`, and `learning_rate` for the ANN , or adjust `n_estimators` and `max_depth` for the RF . Please note that these provided algorithms are just a baseline starting point — each team is expected to design and implement their own custom models. 
-
-  
-<p align="center">
-  <img src="RF.png" alt="" width="800"/>
-</p>
 
 
+## 4. Running the Pipeline (Step‑by‑Step with Jupyter Notebooks) 📓🚀
 
-```bash
-python train_model.py
-```
+The recommended way to participate in the Photo‑Z Challenge is through the provided **Jupyter Notebooks**, which guide you through the full workflow step by step.
 
-* 📊 **Evaluate on Validation Set:**
-  Loads the trained model, runs inference on `validation_set.h5`, and generates detailed evaluation plots (PDFs) in the `./pdf/` directory. The generated evaluation report includes the following visualizations: 📈
-  
-  * **Page 1:** 🌌 Scatter plots comparing Predicted vs True Redshift, displaying both point density and color-coding by iSDSS magnitude for Galaxies and QSOs.
-  
-  * **Page 2:** 📉 Binned performance metrics—Bias, precision ($\sigma_{NMAD}$), and Outlier Fraction—evaluated against iSDSS magnitude and True Z for Galaxies.
-  
-  * **Page 3 (Conditional):** Scatter plots showing the Negative Log-Likelihood (NLL) versus True Redshift. This page is only generated if your chosen model outputs predictive uncertainty (Z_PRED_STD). 
+This approach allows you to **visualize the data, train models, evaluate performance, and prepare submissions interactively**.
 
-These are just examples of diagnostic plots that can help you identify biases and weaknesses in your model. You are encouraged to design additional plots tailored to your science goals to better understand the model’s limitations.
+### Step 1 — Data Exploration & Visualization 🔍📊
 
-```bash
-python test_validation.py
-```
+Notebook: `step_1_data_visualization.ipynb`
+
+The first step is to **explore and understand the datasets** before training any models.
+
+In this notebook you will:
+
+- Inspect the **training, validation, and blind datasets**
+- Visualize **redshift distributions**
+- Explore **color–magnitude relations**
+- Inspect **example SEDs**
+- Identify potential **selection effects or biases**
+
+Understanding the data is essential before designing or training any machine learning model.
 
 
-* 🙈 **Generate Predictions for the Blind Test Set:**  
-  The blind test set (`blind_test_set.h5`) does not include true labels. You should use it only to run inference and prepare your final challenge submission. 🏆
 
-  Running the script will produce a CSV file containing your model predictions (`Z_PRED`) and, if your algorithm supports uncertainty estimation, the corresponding predicted uncertainty (`Z_PRED_STD`).
+### Step 2 — Train Your Model 🧠🏋️
 
-```bash
-python submit_predictions.py
-```
+Notebook: `step_2_train_model.ipynb`
 
-## 📊 Visualize Datasets
+In this step you will train your machine learning model using the **training dataset**.
+
+The notebook includes baseline implementations such as:
+
+- **Artificial Neural Network (ANN)**
+- **Random Forest (RF)**
+
+The Random Forest can estimate prediction uncertainty using the **standard deviation across trees**, while the ANN allows flexible architecture design.
+
+You can tune model hyperparameters through the `config.yaml` file, including:
+
+- `hidden_layers`
+- `dropout_rates`
+- `epochs`
+- `learning_rate`
+- `n_estimators`
+- `max_depth`
+
+These baseline models are only starting points — teams are encouraged to design **their own models and improvements**.
+
+
+---
+
+### Step 3 — Validation & Performance Evaluation 📉📈
+
+Notebook: `step_3_test_validation.ipynb`
+
+This notebook evaluates the trained model using the **validation dataset**.
+
+It generates diagnostic plots and metrics such as:
+
+- **Predicted vs True Redshift scatter plots**
+- **Bias, σ_NMAD, and Outlier Fraction**
+- Performance as a function of **magnitude and redshift**
+- Optional **Negative Log‑Likelihood (NLL)** analysis for probabilistic models
+
+These diagnostics help identify:
+
+- Biases in the predictions
+- Performance degradation at faint magnitudes
+- Model limitations or systematic trends
+
+Participants are encouraged to **add their own diagnostic plots** to better understand their models.
+
+---
+
+### Step 4 — Generate the Challenge Submission 🏆
+
+Notebook: `step_4_submit_predictions.ipynb`
+
+The final step is to run inference on the **blind test dataset**.
+
+This dataset **does not include true redshifts**, so it should only be used to generate predictions for submission.
+
+Running this notebook will produce a CSV file containing:
+
+- `Z_PRED` → predicted redshift
+- `Z_PRED_STD` → predicted uncertainty (if available)
+
+This file will be used as the **final challenge submission**.
+
+---
+
+## 5. Running the Pipeline (Command Line) 🏃‍♂️💻
+
+Although the recommended workflow uses **Jupyter Notebooks**, the pipeline can also be executed directly from the command line.
+
+This is useful for:
+
+- running experiments on **remote servers**
+- executing **automated training runs**
+- integrating the pipeline into larger workflows
+
+Once your environment is activated and the data is in `./data/`, the stages of the pipeline can be executed sequentially:
+
+## Visualize Datasets
 
 Generate diagnostic plots to inspect your data (such as **Redshift distribution** or **Color-Magnitude** diagrams ):
 
@@ -154,21 +207,27 @@ You can also visualize the Spectral Energy Distribution of galaxies and QSOs for
 
 ```bash
 python plot_SED_objects.py
-```
 
+### Train the Model
 
-## 5. Running the Pipeline (Jupyter Notebook)
-
-Alternatively, you can run and interact with the pipeline using JupyterLab.
-
-**Step 5.1:** Launch JupyterLab from your terminal (make sure the `photoz_env` environment is activated first):
 ```bash
-jupyter lab
+python train_model.py
 ```
 
-**Step 5.2:** Your default web browser will automatically open. Navigate through the directory tree, open the `.ipynb` notebook file included in the repository, and run the cells sequentially to execute the pipeline.
+### Evaluate on Validation Set
 
-There are four notebooks that mirror the command-line workflow: `data_visualization.ipynb` (inspect the datasets and basic diagnostics), `train_model.ipynb` (train your model using the chosen configuration), `test_validation.ipynb` (evaluate on the validation set and generate plots), and `submit_predictions.ipynb` (run inference on the blind test set and export the submission CSV).
+```bash
+python test_validation.py
+```
+
+### Generate Blind Test Predictions
+
+```bash
+python submit_predictions.py
+```
+
+The outputs (models, plots, and submission files) will be saved in the corresponding project directories.
+
 
 
 ## 6. Model Evaluation & Challenge Metrics 🏆📉
