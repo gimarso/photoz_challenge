@@ -45,7 +45,7 @@ wget -O photoz_challenge_data.zip "https://cloud.iaa.es/index.php/s/mJmJMd5CQamy
 ```
 Extract the data (.h5 files)
 ```bash
-unzip photoz_challenge_data.zip
+python unzip.py
 ```
 Clean up the zip file to save space and rearange the data folder
 ```bash
@@ -180,7 +180,7 @@ Running this notebook will produce a CSV file containing:
 - `Z_PRED` → predicted redshift
 - `Z_PRED_STD` → predicted uncertainty (if available)
 
-This file will be used as the **final challenge submission**.
+You can submit as mnay prediction as you wish. The last file you send  will be used as the **final challenge submission**.
 
 ---
 
@@ -196,7 +196,7 @@ This is useful for:
 
 Once your environment is activated and the data is in `./data/`, the stages of the pipeline can be executed sequentially:
 
-## Visualize Datasets
+# Step 1 —Visualize Datasets
 
 Generate diagnostic plots to inspect your data (such as **Redshift distribution** or **Color-Magnitude** diagrams ):
 
@@ -207,20 +207,22 @@ You can also visualize the Spectral Energy Distribution of galaxies and QSOs for
 
 ```bash
 python plot_SED_objects.py
+```
 
-### Train the Model
+# Step 2 — Train the Model
+
 
 ```bash
 python train_model.py
 ```
 
-### Evaluate on Validation Set
+# Step 3 — Evaluate on Validation Set
 
 ```bash
 python test_validation.py
 ```
 
-### Generate Blind Test Predictions
+# Step 4 - Generate the Challenge Submission
 
 ```bash
 python submit_predictions.py
