@@ -25,10 +25,9 @@ However, obtaining spectra for millions of objects is observationally expensive 
 Because redshift shifts spectral features across wavelength, an identical object observed at different redshifts will produce different colors when observed through different filters. This opens the possibility of estimating distances using photometry alone, a method known as photometric redshifts (photo-z).
 
 <p align="center">
-<img src="photoz.png" width="750">
+  <img src="photoz.png" width="750"><br>
+  <em>Example of how the spectrum of a galaxy shifts toward longer wavelengths as redshift increases. The shaded regions represent photometric filters. As spectral features move across filters, the observed colours change, allowing redshift to be estimated from photometry.</em>
 </p>
-
-Example of how the spectrum of a galaxy shifts toward longer wavelengths as redshift increases. The shaded regions represent photometric filters. As spectral features move across filters, the observed colours change, allowing redshift to be estimated from photometry.
 
 As illustrated above, the same object observed at different redshifts produces very different flux measurements in each filter. At low redshift, the spectrum may fall primarily in bluer filters, while at higher redshift the same spectral features shift into redder filters. Machine learning models can exploit these changes in colour patterns to infer the most likely redshift of a source.
 
