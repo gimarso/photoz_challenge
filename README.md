@@ -5,6 +5,40 @@
 
 Welcome to the Photo-Z Challenge! This guide provides step-by-step instructions to set up your Python environment, install all required dependencies, and run the machine learning pipeline on your local machine. It is fully compatible with both Windows and macOS.
 
+##  0. Introduction 🌌
+
+
+Understanding the distance to astronomical objects is one of the central goals of modern astrophysics and cosmology. A key observable used to estimate these distances is the redshift ($z$). In the current standard cosmological model, the Universe began nearly 14 billion years ago in an event known as the Big Bang. Since then, space itself has been expanding, causing distant galaxies to appear as if they are moving away from us.
+
+Because of this expansion, there is a direct relationship between the distance to a galaxy and the speed at which it appears to recede from us. This recession produces a shift in the frequency of the photons emitted by the galaxy, similar to the Doppler effect heard when a passing car changes the pitch of its horn. If an object moves toward us its light becomes blue-shifted, while objects moving away appear red-shifted. Since the Universe is expanding, distant galaxies typically appear redshifted.
+
+In cosmology, the redshift is quantified by the parameter $z$, defined in terms of the observed wavelength $\lambda_{obs}$ and the emitted wavelength $\lambda_{em}$:
+
+$$
+\lambda_{obs} = (1 + z)\lambda_{em}
+$$
+
+The most accurate way to measure redshift is through spectroscopy. By obtaining a detailed spectrum of an astronomical object and identifying known spectral features (such as hydrogen emission or absorption lines), astronomers can directly measure how much these features have shifted and determine the redshift very precisely. These measurements are known as spectroscopic redshifts.
+
+However, obtaining spectra for millions of objects is observationally expensive and time-consuming. Many modern surveys therefore observe the sky using photometric imaging through multiple filters, either broad-band or narrow-band. Instead of a full spectrum, these surveys measure the brightness of objects through several wavelength bands, producing a coarse sampling of the object’s spectral energy distribution (SED).
+
+Because redshift shifts spectral features across wavelength, an identical object observed at different redshifts will produce different colors when observed through different filters. This opens the possibility of estimating distances using photometry alone, a method known as photometric redshifts (photo-z).
+
+<p align="center">
+<img src="photoz.png" width="750">
+</p>
+
+Example of how the spectrum of a galaxy shifts toward longer wavelengths as redshift increases. The shaded regions represent photometric filters. As spectral features move across filters, the observed colours change, allowing redshift to be estimated from photometry.
+
+As illustrated above, the same object observed at different redshifts produces very different flux measurements in each filter. At low redshift, the spectrum may fall primarily in bluer filters, while at higher redshift the same spectral features shift into redder filters. Machine learning models can exploit these changes in colour patterns to infer the most likely redshift of a source.
+
+In practice, photometric redshift estimation is a challenging problem. Different combinations of galaxy properties — such as stellar age, dust content, metallicity, and star-formation history — can produce very similar observed colours. These degeneracies, together with measurement noise, limited filter coverage, or unusual sources, can lead to large uncertainties or catastrophic errors in the predicted redshift.
+
+Despite these challenges, photometric redshifts are a fundamental tool in modern astronomy because they allow distance estimates for millions of galaxies, enabling large-scale studies of galaxy evolution, dark matter distribution, and the expansion history of the Universe.
+
+In this challenge, participants will develop machine learning models to estimate photometric redshifts from photometric observations. Using a training dataset where the true redshift is known, participants will train predictive models and evaluate their performance on unseen data.
+
+
 ## 1. Prerequisites 🛠️
 
 You must have the following tools installed on your system before beginning: 🚀
